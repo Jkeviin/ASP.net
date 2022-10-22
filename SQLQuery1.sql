@@ -1,84 +1,93 @@
+use master;
+go
+
+drop database DB_API_DATOS;
+go
+
 CREATE DATABASE DB_API_DATOS;
+go
+
 USE DB_API_DATOS;
+go
 
 CREATE TABLE USUARIO(
-idU varchar(15) primary key,
-nombres varchar(80),
-telefono varchar(60),
-correo varchar(40),
-ciudad varchar(40),
-fechaIngreso datetime default getdate()
-);
+	idU varchar(15) primary key,
+	nombres varchar(80),
+	telefono varchar(60),
+	correo varchar(40),
+	ciudad varchar(40),
+	fechaIngreso datetime default getdate());
+go
 
 INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
-VALUES ('u01', 'Sara', '3214557','sara@gmail.com','cartagena');
+		VALUES ('u01', 'Sara', '3214557','sara@gmail.com','cartagena');
+go
 
 INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
-VALUES ('u02', 'Camila', '3214558','camila@gmail.com','bogota');
+		VALUES ('u02', 'Camila', '3214558','camila@gmail.com','bogota');
+go
 
 INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
-VALUES ('u03', 'Clara', '3214599','clara@gmail.com','medellin');
+		VALUES ('u03', 'Clara', '3214599','clara@gmail.com','medellin');
+go
 
 INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
-VALUES ('u04', 'Dahiana', '3214566','dahiana@gmail.com','armenia');
+		VALUES ('u04', 'Dahiana', '3214566','dahiana@gmail.com','armenia');
+go
 
 INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
-VALUES ('u05', 'Mariana', '3256557','mariana@gmail.com','pereira');
+		VALUES ('u05', 'Mariana', '3256557','mariana@gmail.com','pereira');
 GO
 
-CREATE PROCEDURE USP_REGISTRAR(
-@idU varchar(15),
-@nombres varchar(80),
-@telefono varchar(60),
-@correo varchar(40),
-@ciudad varchar(40)
-)
+CREATE PROCEDURE USP_REGISTRAR
+	@idU varchar(15),
+	@nombres varchar(80),
+	@telefono varchar(60),
+	@correo varchar(40),
+	@ciudad varchar(40)
 AS
 BEGIN
-INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
-VALUES ('@idU', '@nombres','@telefono','@correo','@ciudad')
-END
+	INSERT INTO USUARIO(idU, nombres,telefono,correo,ciudad)
+			VALUES (@idU, @nombres,@telefono,@correo,@ciudad)
+	END
 GO
 
-CREATE PROCEDURE USP_ACTUALIZAR(
-@idU varchar(15),
-@nombres varchar(80),
-@telefono varchar(60),
-@correo varchar(40),
-@ciudad varchar(40)
-)
+CREATE PROCEDURE USP_ACTUALIZAR
+	@idU varchar(15),
+	@nombres varchar(80),
+	@telefono varchar(60),
+	@correo varchar(40),
+	@ciudad varchar(40)
 AS
 BEGIN
-UPDATE USUARIO SET
-nombres=@nombres,
-telefono=@telefono,
-correo=@correo,
-ciudad=@ciudad
-WHERE idU=@idU
-END
+	UPDATE USUARIO SET
+		nombres=@nombres,
+		telefono=@telefono,
+		correo=@correo,
+		ciudad=@ciudad
+		WHERE idU=@idU
+	END
 GO
 
-CREATE PROCEDURE USP_ELIMINAR(
-@idU varchar(15)
-)
+CREATE PROCEDURE USP_ELIMINAR
+	@idU varchar(15)
 AS
 BEGIN
-DELETE FROM USUARIO where @idU=idU
-END
+	DELETE FROM USUARIO where @idU=idU
+	END
 GO
 
-CREATE PROCEDURE USP_OBTENER(
-@idU varchar(15)
-)
+CREATE PROCEDURE USP_OBTENER
+	@idU varchar(15)
 AS
 BEGIN
-SELECT * FROM USUARIO where @idU=idU
-END
+	SELECT * FROM USUARIO where @idU=idU
+	END
 GO
 
 CREATE PROCEDURE USP_LISTAR
 AS
 BEGIN
-SELECT * FROM USUARIO
-END
+	SELECT * FROM USUARIO
+	END
 GO
